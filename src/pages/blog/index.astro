@@ -4,18 +4,18 @@ import { getPosts, formatDate, isoDate } from "../../data/blog";
 
 const posts = await getPosts();
 ---
-<Base title="Writing" description="Posts by Forrest Zhang.">
-  <h1>Writing</h1>
-  {posts.length === 0 ? (
-    <p class="muted">No posts yet.</p>
-  ) : (
-    <ul class="plain posts">
-      {posts.map((post) => (
-        <li>
-          <a href={`/blog/${post.id}/`}>{post.data.title}</a>
+<Base title="Writing" description="Writing by Forrest Zhang.">
+  <section>
+    <div class="label">Writing</div>
+    {posts.length === 0 ? (
+      <p class="muted">Nothing yet.</p>
+    ) : (
+      posts.map((post) => (
+        <a class="row post" href={`/blog/${post.id}/`}>
+          <span>{post.data.title}</span>
           <time datetime={isoDate(post.data.date)}>{formatDate(post.data.date)}</time>
-        </li>
-      ))}
-    </ul>
-  )}
+        </a>
+      ))
+    )}
+  </section>
 </Base>

@@ -1,51 +1,52 @@
 ---
 import Base from "../layouts/Base.astro";
-import { PROJECTS, LINKS } from "../data/site";
+import { SITE, PROJECTS, LINKS } from "../data/site";
 import { getPosts, formatDate, isoDate } from "../data/blog";
 
 const posts = (await getPosts()).slice(0, 5);
 ---
 <Base>
-  <h1>Forrest Zhang</h1>
-  <p class="lede">I build software companies from Irvine, California.</p>
-  <p>
-    I run VantaSoft and Telvana, I'm CTO at Butterfli, and I'm building Dexio, a shared wiki
-    for AI agents.
-  </p>
+  <header class="intro">
+    <img class="avatar" src="/forrest.jpg" alt="Forrest Zhang" width="64" height="64" />
+    <h1>{SITE.name}</h1>
+    <div class="muted">{SITE.tagline}</div>
+  </header>
 
   <section>
-    <h2>Projects</h2>
-    <ul class="plain">
-      {PROJECTS.map((p) => (
-        <li class="project">
-          <div class="head">
-            {p.url ? <a class="title" href={p.url}>{p.name}</a> : <span class="title">{p.name}</span>}
-            <span class="role">{p.role}</span>
-          </div>
-          <p>{p.summary}</p>
-        </li>
-      ))}
-    </ul>
+    <div class="label">Projects</div>
+    {PROJECTS.map((p) => {
+      const cells = (
+        <Fragment>
+          <span>{p.name}</span>
+          <span class="muted r">{p.role}</span>
+          <span class="d">{p.summary}</span>
+          <span class="go">{p.url && (
+            <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true">
+              <path d="M2.5 7.5 7.5 2.5M3.5 2.5h4v4" fill="none" stroke="currentColor" stroke-width="1.1" />
+            </svg>
+          )}</span>
+        </Fragment>
+      );
+      return p.url ? <a class="row" href={p.url}>{cells}</a> : <div class="row">{cells}</div>;
+    })}
   </section>
 
   {posts.length > 0 && (
     <section>
-      <h2>Writing</h2>
-      <ul class="plain posts">
-        {posts.map((post) => (
-          <li>
-            <a href={`/blog/${post.id}/`}>{post.data.title}</a>
-            <time datetime={isoDate(post.data.date)}>{formatDate(post.data.date)}</time>
-          </li>
-        ))}
-      </ul>
+      <div class="label">Writing</div>
+      {posts.map((post) => (
+        <a class="row post" href={`/blog/${post.id}/`}>
+          <span>{post.data.title}</span>
+          <time datetime={isoDate(post.data.date)}>{formatDate(post.data.date)}</time>
+        </a>
+      ))}
     </section>
   )}
 
   <section>
-    <h2>Elsewhere</h2>
-    <p class="links">
+    <div class="label">Elsewhere</div>
+    <div class="links">
       {LINKS.map((l) => <a href={l.url} rel="me">{l.label}</a>)}
-    </p>
+    </div>
   </section>
 </Base>

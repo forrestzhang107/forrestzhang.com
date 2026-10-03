@@ -5,7 +5,11 @@ by `.github/workflows/deploy.yml` on every push to `main`.
 
 ## Edit
 
-- Projects, intro links, site description: `src/data/site.ts`.
+- Projects, links, tagline, site description: `src/data/site.ts`. Keep project summaries to one
+  short line.
+- Profile picture: `public/forrest.jpg` (256x256, from his GitHub avatar).
+- Design: one typeface (IBM Plex Mono, self-hosted via `@fontsource`), off-white, light and dark.
+  Styles in `src/styles/global.css`.
 - Home page copy: `src/pages/index.astro`.
 - A post: add `src/content/blog/<slug>.md` with `title`, `description` and `date` front matter.
   It goes live at `/blog/<slug>/` on the next push. `draft: true` keeps it off the live site.
