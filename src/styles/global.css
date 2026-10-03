@@ -71,6 +71,7 @@ section + section { margin-top: 64px; }
 }
 .row .d { color: var(--text); }
 .row .go { color: var(--muted); text-align: right; }
+.row .go svg { vertical-align: -1px; }
 .row.post { grid-template-columns: 1fr 160px; }
 .row.post time { color: var(--muted); text-align: right; font-variant-numeric: tabular-nums; }
 
