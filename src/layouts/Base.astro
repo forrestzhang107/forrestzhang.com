@@ -1,0 +1,54 @@
+---
+import "../styles/global.css";
+import { SITE } from "../data/site";
+import { getPosts } from "../data/blog";
+
+interface Props {
+  title?: string;
+  description?: string;
+  type?: "website" | "article";
+}
+
+const { title, description = SITE.description, type = "website" } = Astro.props;
+const fullTitle = title ? `${title} | ${SITE.name}` : SITE.name;
+const canonical = new URL(Astro.url.pathname, SITE.url).href;
+const hasPosts = (await getPosts()).length > 0;
+const path = Astro.url.pathname;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    {hasPosts && <link rel="alternate" type="application/rss+xml" title={SITE.name} href="/rss.xml" />}
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:type" content={type} />
+    <meta property="og:site_name" content={SITE.name} />
+    <meta name="twitter:card" content="summary" />
+  </head>
+  <body>
+    {(path !== "/" || hasPosts) && (
+      <header class="site">
+        {path === "/" ? <span /> : <a class="name" href="/">{SITE.name}</a>}
+        {hasPosts && (
+          <nav>
+            <a href="/blog/" aria-current={path.startsWith("/blog") ? "page" : undefined}>Writing</a>
+          </nav>
+        )}
+      </header>
+    )}
+    <main>
+      <slot />
+    </main>
+    <footer class="site">
+      <span>© {new Date().getFullYear()} {SITE.name}</span>
+    </footer>
+  </body>
+</html>

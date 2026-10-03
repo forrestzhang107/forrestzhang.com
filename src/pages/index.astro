@@ -1,0 +1,51 @@
+---
+import Base from "../layouts/Base.astro";
+import { PROJECTS, LINKS } from "../data/site";
+import { getPosts, formatDate, isoDate } from "../data/blog";
+
+const posts = (await getPosts()).slice(0, 5);
+---
+<Base>
+  <h1>Forrest Zhang</h1>
+  <p class="lede">I build software companies from Irvine, California.</p>
+  <p>
+    I run VantaSoft and Telvana, I'm CTO at Butterfli, and I'm building Dexio, a shared wiki
+    for AI agents.
+  </p>
+
+  <section>
+    <h2>Projects</h2>
+    <ul class="plain">
+      {PROJECTS.map((p) => (
+        <li class="project">
+          <div class="head">
+            {p.url ? <a class="title" href={p.url}>{p.name}</a> : <span class="title">{p.name}</span>}
+            <span class="role">{p.role}</span>
+          </div>
+          <p>{p.summary}</p>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  {posts.length > 0 && (
+    <section>
+      <h2>Writing</h2>
+      <ul class="plain posts">
+        {posts.map((post) => (
+          <li>
+            <a href={`/blog/${post.id}/`}>{post.data.title}</a>
+            <time datetime={isoDate(post.data.date)}>{formatDate(post.data.date)}</time>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )}
+
+  <section>
+    <h2>Elsewhere</h2>
+    <p class="links">
+      {LINKS.map((l) => <a href={l.url}>{l.label}</a>)}
+    </p>
+  </section>
+</Base>
