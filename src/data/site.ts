@@ -19,7 +19,7 @@ export type Project = {
 export const PROJECTS: Project[] = [
   { name: "Dexio", role: "Founder", summary: "One wiki for all your agents.", url: "https://dexio.wiki" },
   { name: "VantaSoft", role: "CEO", summary: "Technical consultancy. CTO-level leadership and engineering.", url: "https://vantasoft.com" },
-  { name: "Telvana", role: "CEO, founder", summary: "AI voice for dental practices." },
+  { name: "Telvana", role: "CEO, founder", summary: "AI voice for dental practices.", url: "https://telvana.com" },
   { name: "Butterfli", role: "CTO", summary: "On-demand assisted transportation.", url: "https://gobutterfli.com" },
   { name: "serviceMob", role: "Fractional CTO", summary: "Customer experience modeled as structured data.", url: "https://servicemob.com" },
 ];
