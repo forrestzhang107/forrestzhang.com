@@ -45,7 +45,7 @@ const posts = (await getPosts()).slice(0, 5);
   <section>
     <h2>Elsewhere</h2>
     <p class="links">
-      {LINKS.map((l) => <a href={l.url}>{l.label}</a>)}
+      {LINKS.map((l) => <a href={l.url} rel="me">{l.label}</a>)}
     </p>
   </section>
 </Base>
