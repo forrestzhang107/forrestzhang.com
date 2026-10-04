@@ -3,13 +3,13 @@
 @import "@fontsource/ibm-plex-mono/latin-500.css";
 
 :root {
-  --bg: #f7f7f5;
-  --fg: #141414;
-  --text: #4a4a46;
-  --muted: #8a8a85;
-  --faint: #b0b0aa;
-  --rule: #e4e4df;
-  --link-rule: #cfcfc9;
+  --bg: #fafaf8;
+  --fg: #111110;
+  --text: #262624;
+  --muted: #5c5c57;
+  --faint: #7a7a74;
+  --rule: #dddcd6;
+  --link-rule: #a9a9a2;
   --code-bg: #eeeeea;
   color-scheme: light dark;
 }
@@ -17,12 +17,12 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --bg: #121211;
-    --fg: #ecece8;
-    --text: #b4b4ae;
-    --muted: #7e7e78;
-    --faint: #5a5a55;
-    --rule: #262624;
-    --link-rule: #45453f;
+    --fg: #f2f2ee;
+    --text: #dcdcd6;
+    --muted: #a8a8a1;
+    --faint: #86867f;
+    --rule: #33332f;
+    --link-rule: #6a6a63;
     --code-bg: #1c1c1a;
   }
 }
@@ -32,14 +32,13 @@
 html {
   background: var(--bg);
   color: var(--fg);
-  font: 400 13.5px/1.75 "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
-  -webkit-font-smoothing: antialiased;
+  font: 400 15px/1.7 "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
   text-rendering: optimizeLegibility;
 }
 
 a { color: inherit; text-decoration: none; }
 
-main { max-width: 620px; margin: 0 auto; padding: 132px 28px 80px; }
+main { max-width: 680px; margin: 0 auto; padding: 132px 28px 80px; }
 
 .muted { color: var(--muted); }
 
@@ -48,7 +47,7 @@ main { max-width: 620px; margin: 0 auto; padding: 132px 28px 80px; }
 
 /* Home header */
 .intro { display: flex; align-items: center; gap: 16px; }
-.avatar { width: 44px; height: 44px; border-radius: 50%; flex: none; }
+.avatar { width: 48px; height: 48px; border-radius: 50%; flex: none; }
 h1 { font-size: inherit; font-weight: 500; line-height: 1.4; }
 .intro .muted { line-height: 1.4; }
 
@@ -64,7 +63,7 @@ section.first .label { margin-top: 0; }
 .row { display: grid; grid-template-columns: 1fr auto; column-gap: 20px; padding: 11px 0; border-top: 1px solid var(--rule); }
 .rows > .row:last-child { border-bottom: 1px solid var(--rule); }
 .row .l { display: contents; }
-.row .t { color: var(--fg); grid-column: 1; grid-row: 1; }
+.row .t { color: var(--fg); font-weight: 500; grid-column: 1; grid-row: 1; }
 .row .l p { color: var(--muted); grid-column: 1 / -1; grid-row: 2; }
 .row .r { color: var(--muted); grid-column: 2; grid-row: 1; text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
 a.row:hover .t { text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
