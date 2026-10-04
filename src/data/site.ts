@@ -4,7 +4,15 @@ export const SITE = {
   url: "https://forrestzhang.com",
   name: "Forrest Zhang",
   location: "Irvine, California",
-  description: "Forrest Zhang builds software companies from Irvine, California.",
+  // The home page <title>, which Google shows as the result heading.
+  title: "Forrest Zhang | Dexio, VantaSoft, Telvana",
+  // Meta description: the snippet under the heading in search results. Keep it under ~155 chars.
+  description:
+    "Engineer and founder in Irvine, California. CEO of VantaSoft and Telvana, CTO at Butterfli, " +
+    "and building Dexio, one wiki for all your agents.",
+  // The home page share card (src/data/card.ts).
+  cardTitle: "I build software companies.",
+  cardKicker: "Dexio · VantaSoft · Telvana · Butterfli",
 };
 
 export type Project = {

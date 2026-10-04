@@ -1,20 +1,44 @@
 ---
 import "../styles/global.css";
-import { SITE, LINKS } from "../data/site";
+import { SITE, LINKS, PROJECTS } from "../data/site";
 import { getPosts } from "../data/blog";
 
 interface Props {
   title?: string;
   description?: string;
   type?: "website" | "article";
+  // Share card slug under /og/ (src/pages/og/[slug].png.ts).
+  card?: string;
+  // Extra JSON-LD for the page, e.g. a BlogPosting.
+  schema?: Record<string, unknown>;
 }
 
-const { title, description = SITE.description, type = "website" } = Astro.props;
-const fullTitle = title ? `${title} | ${SITE.name}` : SITE.name;
+const { title, description = SITE.description, type = "website", card = "home", schema } = Astro.props;
+const fullTitle = title ? `${title} | ${SITE.name}` : SITE.title;
 const canonical = new URL(Astro.url.pathname, SITE.url).href;
-const image = new URL("/forrest.jpg", SITE.url).href;
+const image = new URL(`/og/${card}.png`, SITE.url).href;
 const hasPosts = (await getPosts()).length > 0;
 const isHome = Astro.url.pathname === "/";
+
+// Structured data. WebSite.name is what Google shows as the site name above the result;
+// Person ties the profiles together (sameAs) and names the companies.
+const person = {
+  "@type": "Person",
+  "@id": `${SITE.url}/#person`,
+  name: SITE.name,
+  url: `${SITE.url}/`,
+  image: `${SITE.url}/forrest.jpg`,
+  jobTitle: "Founder and CEO",
+  homeLocation: { "@type": "Place", name: SITE.location },
+  worksFor: PROJECTS.filter((p) => p.url).map((p) => ({ "@type": "Organization", name: p.name, url: p.url })),
+  sameAs: LINKS.map((l) => l.url),
+};
+const graph = [
+  { "@type": "WebSite", "@id": `${SITE.url}/#website`, name: SITE.name, alternateName: "forrestzhang.com", url: `${SITE.url}/` },
+  ...(isHome ? [{ "@type": "ProfilePage", url: `${SITE.url}/`, mainEntity: person }] : [person]),
+  ...(schema ? [schema] : []),
+];
+const jsonld = JSON.stringify({ "@context": "https://schema.org", "@graph": graph });
 ---
 <!doctype html>
 <html lang="en">
@@ -24,17 +48,23 @@ const isHome = Astro.url.pathname === "/";
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="apple-touch-icon" href="/forrest.jpg" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="/favicon-96.png" type="image/png" sizes="96x96" />
+    <link rel="icon" href="/icon-192.png" type="image/png" sizes="192x192" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="sitemap" href="/sitemap-index.xml" />
     {hasPosts && <link rel="alternate" type="application/rss+xml" title={SITE.name} href="/rss.xml" />}
-    <meta property="og:title" content={fullTitle} />
+    <meta property="og:title" content={title ?? SITE.name} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:type" content={type} />
     <meta property="og:site_name" content={SITE.name} />
     <meta property="og:image" content={image} />
-    <meta name="twitter:card" content="summary" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={image} />
+    <script type="application/ld+json" set:html={jsonld} />
   </head>
   <body>
     <main>

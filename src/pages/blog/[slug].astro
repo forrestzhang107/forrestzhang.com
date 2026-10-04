@@ -11,8 +11,20 @@ export async function getStaticPaths() {
 const { post } = Astro.props as { post: Post };
 const { title, description, date, updated } = post.data;
 const { Content } = await render(post);
+const url = new URL(`/blog/${post.id}/`, "https://forrestzhang.com").href;
+const schema = {
+  "@type": "BlogPosting",
+  headline: title,
+  description,
+  datePublished: isoDate(date),
+  ...(updated ? { dateModified: isoDate(updated) } : {}),
+  url,
+  mainEntityOfPage: url,
+  image: `https://forrestzhang.com/og/${post.id}.png`,
+  author: { "@id": "https://forrestzhang.com/#person" },
+};
 ---
-<Base title={title} description={description} type="article">
+<Base title={title} description={description} type="article" card={post.id} schema={schema}>
   <article>
     <header>
       <h1>{title}</h1>

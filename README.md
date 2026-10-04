@@ -7,7 +7,11 @@ by `.github/workflows/deploy.yml` on every push to `main`.
 
 - Projects, bio, links, location, site description: `src/data/site.ts`. Keep project summaries to
   one short line. In the bio, a project name in {braces} links to that project.
-- Profile picture: `public/forrest.jpg` (256x256, from his GitHub avatar).
+- Profile picture: `public/forrest.jpg` (256x256, from his GitHub avatar). Favicons (`favicon.ico`,
+  `favicon-96.png`, `icon-192.png`, `apple-touch-icon.png`) are made from the same photo.
+- Search and share previews: home `<title>` and meta description in `src/data/site.ts`; share
+  cards (og:image, 1200x630) drawn per page at build time by `src/data/card.ts`; JSON-LD
+  (WebSite, Person/ProfilePage, BlogPosting) in `src/layouts/Base.astro`.
 - Design: centered single column, one typeface (IBM Plex Mono, self-hosted via `@fontsource`),
   off-white, light and dark.
   Styles in `src/styles/global.css`.
