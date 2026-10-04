@@ -27,7 +27,6 @@ const person = {
   "@id": `${SITE.url}/#person`,
   name: SITE.name,
   url: `${SITE.url}/`,
-  image: `${SITE.url}/forrest.jpg`,
   jobTitle: "Founder and CEO",
   homeLocation: { "@type": "Place", name: SITE.location },
   worksFor: PROJECTS.filter((p) => p.url).map((p) => ({ "@type": "Organization", name: p.name, url: p.url })),

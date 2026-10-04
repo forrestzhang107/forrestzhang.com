@@ -1,6 +1,6 @@
 // Share cards: a 1200x630 PNG per page, drawn at build time, used as og:image so links on
 // LinkedIn, X, Slack and iMessage show a card instead of a bare URL. Same look as the site:
-// one monospace typeface, off-white, the round headshot.
+// one monospace typeface, off-white, the "fz" monogram.
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import satori from "satori";
@@ -15,7 +15,6 @@ const RULE = "#dddcd6";
 
 const fontFile = (w: number) =>
   readFileSync(join(ROOT, `node_modules/@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-${w}-normal.woff`));
-const photo = "data:image/jpeg;base64," + readFileSync(join(ROOT, "public/forrest.jpg")).toString("base64");
 
 // Long titles step down so they stay within three or four lines.
 function titleSize(title: string): number {
@@ -30,7 +29,7 @@ const h = (type: string, style: Record<string, unknown>, children?: unknown, ext
   props: { style, children, ...extra },
 });
 
-/** A PNG card: headshot and name at the top, `title` large, `kicker` and the domain at the bottom. */
+/** A PNG card: monogram and name at the top, `title` large, `kicker` and the domain at the bottom. */
 export async function renderCard(title: string, kicker: string): Promise<Uint8Array> {
   const card = h(
     "div",
@@ -40,7 +39,9 @@ export async function renderCard(title: string, kicker: string): Promise<Uint8Ar
     },
     [
       h("div", { display: "flex", alignItems: "center", gap: 26 }, [
-        h("img", { width: 96, height: 96, borderRadius: 48 }, undefined, { src: photo, width: 96, height: 96 }),
+        // The "fz" monogram from the favicon, not the headshot (Forrest, 2026-10-04: no face on cards).
+        h("div", { display: "flex", alignItems: "center", justifyContent: "center", width: 96, height: 96,
+          borderRadius: 48, background: FG, color: BG, fontSize: 44, fontWeight: 600 }, "fz"),
         h("div", { display: "flex", flexDirection: "column" }, [
           h("div", { display: "flex", fontSize: 34, fontWeight: 500 }, SITE.name),
           h("div", { display: "flex", fontSize: 26, color: MUTED, marginTop: 4 }, SITE.location),
@@ -61,6 +62,7 @@ export async function renderCard(title: string, kicker: string): Promise<Uint8Ar
     fonts: [
       { name: "Plex Mono", data: fontFile(400), weight: 400, style: "normal" },
       { name: "Plex Mono", data: fontFile(500), weight: 500, style: "normal" },
+      { name: "Plex Mono", data: fontFile(600), weight: 600, style: "normal" },
     ],
   });
   return new Resvg(svg, { fitTo: { mode: "width", value: 1200 } }).render().asPng();

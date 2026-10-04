@@ -11,7 +11,8 @@ by `.github/workflows/deploy.yml` on every push to `main`.
   `favicon-96.png`, `icon-192.png`, `apple-touch-icon.png`) are an "fz" monogram in IBM Plex Mono,
   not the photo (Forrest, 2026-10-04: no headshot for the favicon).
 - Search and share previews: home `<title>` and meta description in `src/data/site.ts`; share
-  cards (og:image, 1200x630) drawn per page at build time by `src/data/card.ts`; JSON-LD
+  cards (og:image, 1200x630) drawn per page at build time by `src/data/card.ts`, with the "fz"
+  monogram and no photo (Forrest, 2026-10-04: no face on share cards); JSON-LD
   (WebSite, Person/ProfilePage, BlogPosting) in `src/layouts/Base.astro`.
 - Design: centered single column, one typeface (IBM Plex Mono, self-hosted via `@fontsource`),
   off-white, light and dark.
