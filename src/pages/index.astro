@@ -1,52 +1,60 @@
 ---
 import Base from "../layouts/Base.astro";
-import { SITE, PROJECTS, LINKS } from "../data/site";
+import Arrow from "../components/Arrow.astro";
+import { SITE, PROJECTS, BIO } from "../data/site";
 import { getPosts, formatDate, isoDate } from "../data/blog";
 
 const posts = (await getPosts()).slice(0, 5);
+
+// Split the bio into text and {Project} links.
+const urls = Object.fromEntries(PROJECTS.map((p) => [p.name, p.url]));
+const bio = BIO.split(/(\{[^}]+\})/).filter(Boolean).map((part) => {
+  const m = part.match(/^\{(.+)\}$/);
+  return m ? { text: m[1], url: urls[m[1]] } : { text: part };
+});
 ---
 <Base>
   <header class="intro">
-    <img class="avatar" src="/forrest.jpg" alt="Forrest Zhang" width="64" height="64" />
-    <h1>{SITE.name}</h1>
-    <div class="muted">{SITE.tagline}</div>
+    <img class="avatar" src="/forrest.jpg" alt="Forrest Zhang" width="44" height="44" />
+    <div>
+      <h1>{SITE.name}</h1>
+      <div class="muted">{SITE.location}</div>
+    </div>
   </header>
+
+  <p class="bio">
+    {bio.map((b) => (b.url ? <a href={b.url}>{b.text}</a> : b.text))}
+  </p>
 
   <section>
     <div class="label">Projects</div>
-    {PROJECTS.map((p) => {
-      const cells = (
-        <Fragment>
-          <span>{p.name}</span>
-          <span class="muted r">{p.role}</span>
-          <span class="d">{p.summary}</span>
-          <span class="go">{p.url && (
-            <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true">
-              <path d="M2.5 7.5 7.5 2.5M3.5 2.5h4v4" fill="none" stroke="currentColor" stroke-width="1.1" />
-            </svg>
-          )}</span>
-        </Fragment>
-      );
-      return p.url ? <a class="row" href={p.url}>{cells}</a> : <div class="row">{cells}</div>;
-    })}
+    <div class="rows">
+      {PROJECTS.map((p) => {
+        const inner = (
+          <Fragment>
+            <div class="l">
+              <span class="t">{p.name}{p.url && <Arrow />}</span>
+              <p>{p.summary}</p>
+            </div>
+            <span class="r">{p.role}</span>
+          </Fragment>
+        );
+        return p.url ? <a class="row" href={p.url}>{inner}</a> : <div class="row">{inner}</div>;
+      })}
+    </div>
   </section>
 
   {posts.length > 0 && (
     <section>
       <div class="label">Writing</div>
-      {posts.map((post) => (
-        <a class="row post" href={`/blog/${post.id}/`}>
-          <span>{post.data.title}</span>
-          <time datetime={isoDate(post.data.date)}>{formatDate(post.data.date)}</time>
-        </a>
-      ))}
+      <div class="rows">
+        {posts.map((post) => (
+          <a class="row" href={`/blog/${post.id}/`}>
+            <div class="l"><span class="t">{post.data.title}</span></div>
+            <time class="r" datetime={isoDate(post.data.date)}>{formatDate(post.data.date)}</time>
+          </a>
+        ))}
+      </div>
     </section>
   )}
-
-  <section>
-    <div class="label">Elsewhere</div>
-    <div class="links">
-      {LINKS.map((l) => <a href={l.url} rel="me">{l.label}</a>)}
-    </div>
-  </section>
 </Base>

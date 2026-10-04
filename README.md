@@ -5,10 +5,11 @@ by `.github/workflows/deploy.yml` on every push to `main`.
 
 ## Edit
 
-- Projects, links, tagline, site description: `src/data/site.ts`. Keep project summaries to one
-  short line.
+- Projects, bio, links, location, site description: `src/data/site.ts`. Keep project summaries to
+  one short line. In the bio, a project name in {braces} links to that project.
 - Profile picture: `public/forrest.jpg` (256x256, from his GitHub avatar).
-- Design: one typeface (IBM Plex Mono, self-hosted via `@fontsource`), off-white, light and dark.
+- Design: centered single column, one typeface (IBM Plex Mono, self-hosted via `@fontsource`),
+  off-white, light and dark.
   Styles in `src/styles/global.css`.
 - Home page copy: `src/pages/index.astro`.
 - A post: add `src/content/blog/<slug>.md` with `title`, `description` and `date` front matter.
