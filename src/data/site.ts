@@ -40,6 +40,5 @@ export const BIO =
 
 export const LINKS = [
   { label: "LinkedIn", url: "https://www.linkedin.com/in/forrestfzhang" },
-  { label: "X", url: "https://x.com/forrestfzhang" },
   { label: "GitHub", url: "https://github.com/forrestzhang107" },
 ];
