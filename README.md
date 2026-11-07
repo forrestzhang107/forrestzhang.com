@@ -18,6 +18,9 @@ by `.github/workflows/deploy.yml` on every push to `main`.
   off-white, light and dark.
   Styles in `src/styles/global.css`.
 - Home page copy: `src/pages/index.astro`.
+- Links to other sites open in a new tab (Forrest, 2026-11-07): `target="_blank"` on the project,
+  bio and footer links. Links within the site open in the same tab. Links inside a post's markdown
+  do not get it automatically.
 - A post: add `src/content/blog/<slug>.md` with `title`, `description` and `date` front matter.
   It goes live at `/blog/<slug>/` on the next push. `draft: true` keeps it off the live site.
   The Writing link and section appear once the first post is published.

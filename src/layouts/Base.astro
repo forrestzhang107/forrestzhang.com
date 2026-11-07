@@ -71,7 +71,7 @@ const jsonld = JSON.stringify({ "@context": "https://schema.org", "@graph": grap
       <slot />
       <footer>
         <span>© {new Date().getFullYear()}</span>
-        <nav>{LINKS.map((l) => <a href={l.url} rel="me">{l.label}</a>)}</nav>
+        <nav>{LINKS.map((l) => <a href={l.url} target="_blank" rel="me noopener">{l.label}</a>)}</nav>
       </footer>
     </main>
   </body>

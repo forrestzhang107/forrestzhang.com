@@ -23,7 +23,7 @@ const bio = BIO.split(/(\{[^}]+\})/).filter(Boolean).map((part) => {
   </header>
 
   <p class="bio">
-    {bio.map((b) => (b.url ? <a href={b.url}>{b.text}</a> : b.text))}
+    {bio.map((b) => (b.url ? <a href={b.url} target="_blank" rel="noopener">{b.text}</a> : b.text))}
   </p>
 
   <section>
@@ -39,7 +39,7 @@ const bio = BIO.split(/(\{[^}]+\})/).filter(Boolean).map((part) => {
             <span class="r">{p.role}</span>
           </Fragment>
         );
-        return p.url ? <a class="row" href={p.url}>{inner}</a> : <div class="row">{inner}</div>;
+        return p.url ? <a class="row" href={p.url} target="_blank" rel="noopener">{inner}</a> : <div class="row">{inner}</div>;
       })}
     </div>
   </section>
