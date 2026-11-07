@@ -5,7 +5,7 @@ export const SITE = {
   name: "Forrest Zhang",
   location: "Irvine, California",
   // The home page <title>, which Google shows as the result heading.
-  title: "Forrest Zhang | Dexio, VantaSoft, Telvana",
+  title: "Forrest Zhang | VantaSoft, Telvana, Dexio",
   // Meta description: the snippet under the heading in search results. Keep it under ~155 chars.
   description:
     "Engineer and founder in Irvine, California. CEO of VantaSoft and Telvana, CTO at Butterfli, " +
